@@ -171,3 +171,66 @@ test("Malformed HTML causing a non-critical JSDOM errors", function() {
     c.queue(["http://127.0.0.1:"+MOCKPORT+"/malformed"]);
 
 });
+
+test("Using JSDOM parser", function() {
+    expect( 2 );
+
+    stop();
+
+    var c = new Crawler({
+        "debug":DEBUG,
+        "userAgent":"test/1.2",
+        "forceUTF8":true,
+        "parser" : {"name": "jsdom", "jQueryUrl":"http://code.jquery.com/jquery.js"},
+        "callback":function(error,result,$) {
+            ok(error);
+            ok($);
+            start();
+        }
+    });
+
+    c.queue(["http://127.0.0.1:"+MOCKPORT+"/malformed"]);
+
+});
+
+test("Using Cheerio parser", function() {
+    expect( 2 );
+
+    stop();
+
+    var c = new Crawler({
+        "debug":DEBUG,
+        "userAgent":"test/1.2",
+        "forceUTF8":true,
+        "parser" : {"name": "cheerio"},
+        "callback":function(error,result,$) {
+            ok(error);
+            ok($);
+            start();
+        }
+    });
+
+    c.queue(["http://127.0.0.1:"+MOCKPORT+"/malformed"]);
+
+});
+
+test("No Parser", function() {
+    expect( 2 );
+
+    stop();
+
+    var c = new Crawler({
+        "debug":DEBUG,
+        "userAgent":"test/1.2",
+        "forceUTF8":true,
+        "parser" : false,
+        "callback":function(error,result,$) {
+            ok(error);
+            ok($);
+            start();
+        }
+    });
+
+    c.queue(["http://127.0.0.1:"+MOCKPORT+"/malformed"]);
+
+});

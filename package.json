@@ -39,6 +39,7 @@
        "htmlparser": "1.7.x",
        "request": "2.33.x",
        "jsdom": "0.8.x",
+        "cheerio" : "0.13.x",
        "generic-pool": "2.0.x",
        "underscore": "1.5.x",
        "jschardet": "1.0.2",
