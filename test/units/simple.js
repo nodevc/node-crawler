@@ -12,12 +12,12 @@ test("inline html", function() {
     stop();
 
     var c = new Crawler({
-        "debug":DEBUG
+        debug : DEBUG
     });
 
     c.queue({
-        "html":"<p><i>great!</i></p>",
-        "callback":function(error,result,$) {
+        html : "<p><i>great!</i></p>",
+        callback : function(error,result,$) {
             equal(error,null);
             equal($("i").html(),"great!");
             start();
@@ -33,8 +33,8 @@ test("one request", function() {
     stop();
 
     var c = new Crawler({
-        "debug":DEBUG,
-        "callback":function(error,result,$) {
+        debug : DEBUG,
+        callback : function(error,result,$) {
             equal(error,null);
             ok(result.body.length>1000);
             start();
@@ -51,13 +51,13 @@ test("two requests", function() {
     stop();
 
     var c = new Crawler({
-        "debug":DEBUG,
-        "callback":function(error,result,$) {
+        debug : DEBUG,
+        callback : function(error,result,$) {
             equal(error,null);
             ok(result.body.length>1000);
 
         },
-        "onDrain":function() {
+        onDrain : function() {
             start();
         }
     });
@@ -73,8 +73,8 @@ test("one request gzipped", function() {
     stop();
 
     var c = new Crawler({
-        "debug":DEBUG,
-        "callback":function(error,result,$) {
+        debug : DEBUG,
+        callback : function(error,result,$) {
             equal(error,null);
             ok(result.body.indexOf("gzipped okay.")>0);
             ok(result.headers["content-encoding"]=="gzip");
@@ -93,10 +93,10 @@ test("one request + user agent", function() {
     stop();
 
     var c = new Crawler({
-        "debug":DEBUG,
-        "userAgent":"test/1.2",
-        "jQuery":false,
-        "callback":function(error,result,$) {
+        debug : DEBUG,
+        userAgent : "test/1.2",
+        parser : false,
+        callback : function(error,result,$) {
             equal(error,null);
             ok(result.body=="Your user agent: test/1.2");
             start();
@@ -114,10 +114,10 @@ test("Auto-disabling of jQuery if no html tag first", function() {
     stop();
 
     var c = new Crawler({
-        "debug":DEBUG,
-        "userAgent":"test/1.2",
-        "forceUTF8":true,
-        "callback":function(error,result,$) {
+        debug : DEBUG,
+        userAgent : "test/1.2",
+        forceUTF8 : true,
+        callback : function(error,result,$) {
             equal(error,null);
             ok(result.body=="Your user agent: test/1.2");
             start();
@@ -136,8 +136,8 @@ test("from the readme",function() {
     stop();
 
     var c = new Crawler({
-        "maxConnections":10,
-        "callback":function(error,result,$) {
+        maxConnections : 10,
+        callback : function(error,result,$) {
             equal(typeof result.body, "string");
             if (typeof result.body == "string") {
                 ok(result.body.indexOf("Google")>=0);
@@ -158,73 +158,10 @@ test("Malformed HTML causing a non-critical JSDOM errors", function() {
     stop();
 
     var c = new Crawler({
-        "debug":DEBUG,
-        "userAgent":"test/1.2",
-        "forceUTF8":true,
-        "callback":function(error,result,$) {
-            ok(error);
-            ok($);
-            start();
-        }
-    });
-
-    c.queue(["http://127.0.0.1:"+MOCKPORT+"/malformed"]);
-
-});
-
-test("Using JSDOM parser", function() {
-    expect( 2 );
-
-    stop();
-
-    var c = new Crawler({
-        "debug":DEBUG,
-        "userAgent":"test/1.2",
-        "forceUTF8":true,
-        "parser" : {"name": "jsdom", "jQueryUrl":"http://code.jquery.com/jquery.js"},
-        "callback":function(error,result,$) {
-            ok(error);
-            ok($);
-            start();
-        }
-    });
-
-    c.queue(["http://127.0.0.1:"+MOCKPORT+"/malformed"]);
-
-});
-
-test("Using Cheerio parser", function() {
-    expect( 2 );
-
-    stop();
-
-    var c = new Crawler({
-        "debug":DEBUG,
-        "userAgent":"test/1.2",
-        "forceUTF8":true,
-        "parser" : {"name": "cheerio"},
-        "callback":function(error,result,$) {
-            ok(error);
-            ok($);
-            start();
-        }
-    });
-
-    c.queue(["http://127.0.0.1:"+MOCKPORT+"/malformed"]);
-
-});
-
-test("No Parser", function() {
-    expect( 2 );
-
-    stop();
-
-    var c = new Crawler({
-        "debug":DEBUG,
-        "userAgent":"test/1.2",
-        "forceUTF8":true,
-        "parser" : false,
-        "callback":function(error,result,$) {
+        debug : DEBUG,
+        userAgent : "test/1.2",
+        forceUTF8 : true,
+        callback : function(error,result,$) {
             ok(error);
             ok($);
             start();
